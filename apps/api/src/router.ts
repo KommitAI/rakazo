@@ -717,6 +717,8 @@ export interface RouterDeps {
     privacyPolicyUrl?: string;
     screenProxySecret: string;
     sandboxProvider: string;
+    /** SIGNUP_ALLOWLIST is set, so it replaces the stored allowlist on every start. */
+    signupAllowlistFromEnv?: boolean;
     gitSha?: string;
     updaterUrl?: string;
     updaterToken?: string;
@@ -1357,7 +1359,7 @@ export function createRouter(deps: RouterDeps) {
     deployment: {
       get: authed.deployment.get.handler(async ({ context }) => {
         if (!context.actor.isDeploymentOwner) throw new ORPCError("FORBIDDEN");
-        return deploymentDto(deps.prisma, deps.env.sandboxProvider);
+        return deploymentDto(deps.prisma, deps.env, context.actor.userId);
       }),
       update: authed.deployment.update.handler(async ({ context, input }) => {
         if (!context.actor.isDeploymentOwner) throw new ORPCError("FORBIDDEN");
@@ -1365,6 +1367,22 @@ export function createRouter(deps: RouterDeps) {
           throw new ORPCError("BAD_REQUEST", {
             message:
               "This Mac mode is only available when SANDBOX_PROVIDER=docker on a personal local app.",
+          });
+        }
+        if (input.signupAllowlist && deps.env.signupAllowlistFromEnv) {
+          // The next start would replace an edited list with SIGNUP_ALLOWLIST again.
+          throw new ORPCError("BAD_REQUEST", {
+            message: "SIGNUP_ALLOWLIST on the server sets the signup allowlist.",
+          });
+        }
+        if (input.signupAllowlist) input.signupAllowlist = [...new Set(input.signupAllowlist)];
+        if (
+          input.signupAllowlist?.length &&
+          !(await ownerEmailVerified(deps.prisma, context.actor.userId))
+        ) {
+          // An allowlist signs out every unverified account, the owner's included.
+          throw new ORPCError("BAD_REQUEST", {
+            message: "Verify your email address before limiting signups.",
           });
         }
         await deps.prisma.deploymentSettings.upsert({
@@ -1386,7 +1404,7 @@ export function createRouter(deps: RouterDeps) {
             ...(input.computerHost === undefined ? {} : { computerHost: input.computerHost }),
           },
         });
-        return deploymentDto(deps.prisma, deps.env.sandboxProvider);
+        return deploymentDto(deps.prisma, deps.env, context.actor.userId);
       }),
     },
     security: {
@@ -7365,7 +7383,16 @@ async function computerScreenContext(
   return { ...context, screenLeaseId: screenLeaseIdForRun(lease, lease.runId) };
 }
 
-async function deploymentDto(prisma: PrismaClient, sandboxProvider: string) {
+async function ownerEmailVerified(prisma: PrismaClient, userId: string) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { emailVerified: true },
+  });
+  return user?.emailVerified === true;
+}
+
+async function deploymentDto(prisma: PrismaClient, env: RouterDeps["env"], viewerUserId: string) {
+  const { sandboxProvider } = env;
   const settings = await prisma.deploymentSettings.findUnique({ where: { id: "default" } });
   return {
     ownerUserId: settings?.ownerUserId ?? null,
@@ -7373,6 +7400,8 @@ async function deploymentDto(prisma: PrismaClient, sandboxProvider: string) {
     signupAllowlist: settings?.signupAllowlist
       ? settings.signupAllowlist.split(",").filter(Boolean)
       : [],
+    signupAllowlistFromEnv: Boolean(env.signupAllowlistFromEnv),
+    ownerEmailVerified: await ownerEmailVerified(prisma, viewerUserId),
     hasDeploymentModelCredential: Boolean(settings?.deploymentModelCredentialCipher),
     defaultProvider: settings?.defaultModelProvider
       ? canonicalPiProviderId(settings.defaultModelProvider)

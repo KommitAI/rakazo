@@ -19,6 +19,7 @@ import {
   Monitor,
   Settings,
   ShieldCheck,
+  UserPlus,
   Volume2,
   XIcon,
 } from "lucide-react";
@@ -40,6 +41,7 @@ import {
 import { BillingSettingsPanel } from "./BillingSettingsPanel";
 import { MemorySettingsOverlay } from "./MemorySettingsOverlay";
 import { ModelSettingsOverlay } from "./ModelSettingsOverlay";
+import { SignupSettingsPanel } from "./SignupSettingsPanel";
 import { VoiceSettingsOverlay } from "./VoiceSettingsOverlay";
 
 export type SettingsSection =
@@ -51,6 +53,7 @@ export type SettingsSection =
   | "usage"
   | "computer"
   | "billing"
+  | "signups"
   | "updates";
 
 /** Sections whose settings belong to a space; only these show the space picker. */
@@ -201,6 +204,10 @@ export function SettingsOverlay({
   }, [billingEnabled, section]);
 
   useEffect(() => {
+    if (!isDeploymentOwner && section === "signups") setSection("general");
+  }, [isDeploymentOwner, section]);
+
+  useEffect(() => {
     if (!showUpdates && !serverUpdate.loading && section === "updates") setSection("general");
   }, [showUpdates, serverUpdate.loading, section]);
 
@@ -225,6 +232,7 @@ export function SettingsOverlay({
     { id: "usage", label: t`Usage`, icon: Gauge },
     ...(showComputer ? [{ id: "computer" as const, label: t`Computer`, icon: Monitor }] : []),
     ...(billingEnabled ? [{ id: "billing" as const, label: t`Billing`, icon: CreditCard }] : []),
+    ...(isDeploymentOwner ? [{ id: "signups" as const, label: t`Sign-ups`, icon: UserPlus }] : []),
     ...(showUpdates ? [{ id: "updates" as const, label: t`Updates`, icon: CloudDownload }] : []),
   ];
 
@@ -256,7 +264,7 @@ export function SettingsOverlay({
       nav.removeEventListener("scroll", measure);
       observer?.disconnect();
     };
-  }, [section, showComputer, billingEnabled, showUpdates, i18n.locale]);
+  }, [section, showComputer, billingEnabled, isDeploymentOwner, showUpdates, i18n.locale]);
 
   function scrollSections(direction: number) {
     const nav = navRef.current;
@@ -443,6 +451,7 @@ export function SettingsOverlay({
                   />
                 ) : null}
                 {section === "billing" && billingEnabled ? <BillingSettingsPanel /> : null}
+                {section === "signups" && isDeploymentOwner ? <SignupSettingsPanel /> : null}
                 {section === "updates" && showUpdates ? (
                   <UpdatesSettingsPanel serverUpdate={serverUpdate} />
                 ) : null}

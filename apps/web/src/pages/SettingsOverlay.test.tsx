@@ -78,6 +78,9 @@ vi.mock("../lib/rpc", () => ({
   }),
 }));
 vi.mock("./BillingSettingsPanel", () => ({ BillingSettingsPanel: () => null }));
+vi.mock("./SignupSettingsPanel", () => ({
+  SignupSettingsPanel: () => <div data-testid="signup-settings" />,
+}));
 vi.mock("./MemorySettingsOverlay", () => ({
   MemorySettingsOverlay: ({ config }: { config: unknown }) => {
     memoryConfigs.push(config);
@@ -247,6 +250,23 @@ it("withholds memory connection controls after a failed load and retries the edi
     expect(onMemoryConfigChange).not.toHaveBeenCalled();
   } finally {
     await cleanup();
+  }
+});
+
+it("shows sign-up settings only to the deployment owner", async () => {
+  const member = await render({ initialSection: "signups" });
+  try {
+    expect(member.container.querySelector('[data-testid="settings-nav-signups"]')).toBeNull();
+    expect(member.container.querySelector('[data-testid="signup-settings"]')).toBeNull();
+  } finally {
+    await member.cleanup();
+  }
+  const owner = await render({ isDeploymentOwner: true, initialSection: "signups" });
+  try {
+    expect(owner.container.querySelector('[data-testid="settings-nav-signups"]')).not.toBeNull();
+    expect(owner.container.querySelector('[data-testid="signup-settings"]')).not.toBeNull();
+  } finally {
+    await owner.cleanup();
   }
 });
 

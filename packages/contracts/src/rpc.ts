@@ -82,6 +82,7 @@ import {
   ServerUpdateRequestSchema,
   ServerUpdateRunSchema,
   ServerUpdateStatusSchema,
+  SignupAllowlistEntrySchema,
   SkillPlaybookSchema,
   SpaceMemoryConfigSchema,
   SpaceNavigationSchema,
@@ -230,7 +231,7 @@ export const appContract = {
       .input(
         z.object({
           signupsEnabled: z.boolean().optional(),
-          signupAllowlist: z.array(z.string()).optional(),
+          signupAllowlist: z.array(SignupAllowlistEntrySchema).max(500).optional(),
           computerHost: z.enum(["docker", "this-mac"]).nullable().optional(),
         }),
       )

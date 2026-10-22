@@ -388,6 +388,7 @@ msgstr "Etkinlik"
 #: src/pages/McpServersOverlay.tsx
 #: src/pages/PluginsOverlay.tsx
 #: src/pages/ScratchpadSection.tsx
+#: src/pages/SignupSettingsPanel.tsx
 msgid "Add"
 msgstr "Ekle"
 
@@ -579,6 +580,10 @@ msgstr "Bir kez izin ver"
 msgid "Allow purchase actions without asking"
 msgstr "Satın alma işlemlerine sormadan izin ver"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Allow sign-ups"
+msgstr ""
+
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 msgid "Allow writing"
 msgstr ""
@@ -647,6 +652,10 @@ msgstr "Yanıtlandı: {answer}"
 
 #: src/pages/Paywall.tsx
 msgid "Any model, with your own key"
+msgstr ""
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Anyone can sign up."
 msgstr ""
 
 #: src/components/SoftwareUpdateSection.tsx
@@ -1676,6 +1685,10 @@ msgstr "Çalıştırma geçmişi yüklenemedi"
 msgid "Could not load sign-in options"
 msgstr "Giriş seçenekleri yüklenemedi"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Could not load sign-up settings"
+msgstr ""
+
 #: src/pages/KnowledgeSection.tsx
 msgid "Could not load skill"
 msgstr "Beceri yüklenemedi"
@@ -1805,6 +1818,10 @@ msgstr "Rutin kaydedilemedi"
 #: src/components/ApprovalRulesSettings.tsx
 msgid "Could not save rule"
 msgstr "Kural kaydedilemedi"
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Could not save sign-up settings"
+msgstr ""
 
 #: src/pages/KnowledgeSection.tsx
 msgid "Could not save skill"
@@ -2304,6 +2321,10 @@ msgstr "E-posta"
 msgid "Email is not allowed to register"
 msgstr "Bu e-posta adresinin kaydolmasına izin verilmiyor"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Email or @domain"
+msgstr ""
+
 #: src/lib/user-error.ts
 msgid "Email verification required"
 msgstr "E-posta doğrulaması gerekiyor"
@@ -2346,6 +2367,10 @@ msgstr "Görüntü sınırı için 1 ile 1000 arasında bir tam sayı girin."
 #: src/lib/model-connection-preflight.ts
 msgid "Enter an API key before testing."
 msgstr "Test etmeden önce bir API anahtarı gir."
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Enter an email address or @domain"
+msgstr ""
 
 #: src/pages/McpServersOverlay.tsx
 msgid "Environment variables"
@@ -3281,6 +3306,10 @@ msgstr "Gruba bir ad ver"
 msgid "Name this routine"
 msgstr ""
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "name@example.com or @example.com"
+msgstr ""
+
 #: src/lib/roster-status.ts
 msgid "Needs an answer"
 msgstr ""
@@ -3980,6 +4009,7 @@ msgstr "Yeniden yükle"
 #: src/pages/PluginsOverlay.tsx
 #: src/pages/ScratchpadSection.tsx
 #: src/pages/shell/bot-credentials.tsx
+#: src/pages/SignupSettingsPanel.tsx
 msgid "Remove"
 msgstr "Kaldır"
 
@@ -3996,6 +4026,10 @@ msgstr ""
 #: src/pages/ModelBackupsSettings.tsx
 msgid "Remove {full}"
 msgstr "{full} modelini kaldır"
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Remove {item}"
+msgstr ""
 
 #: src/pages/shell/bot-credentials.tsx
 msgid "Remove {secretName}? This bot will no longer be able to use it."
@@ -4449,6 +4483,10 @@ msgstr "Sunucu adı"
 msgid "Server URL"
 msgstr "Sunucu URL'si"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Set by SIGNUP_ALLOWLIST on the server."
+msgstr ""
+
 #: src/components/call/CallCard.tsx
 #: src/components/SidebarFooter.tsx
 #: src/pages/MessagingSettingsOverlay.tsx
@@ -4570,6 +4608,10 @@ msgstr "Abonelikle oturum aç veya bunun yerine API anahtarını test et."
 #: src/pages/Welcome.tsx
 msgid "Sign up"
 msgstr "Kaydol"
+
+#: src/pages/SettingsOverlay.tsx
+msgid "Sign-ups"
+msgstr ""
 
 #: src/pages/shell/bot-credentials.tsx
 msgid "Site"
@@ -5247,6 +5289,10 @@ msgstr "Değerler şifrelenir ve bir daha gösterilmez."
 #: src/pages/PluginsOverlay.tsx
 msgid "Verify and add"
 msgstr "Doğrula ve ekle"
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Verify your email address to limit sign-ups."
+msgstr ""
 
 #: src/pages/PluginsOverlay.tsx
 msgid "Verifying…"

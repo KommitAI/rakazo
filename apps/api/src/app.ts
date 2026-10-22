@@ -660,6 +660,7 @@ async function buildApp(overrides: CreateAppOverrides): Promise<AppHandles> {
       privacyPolicyUrl: env.privacyPolicyUrl,
       screenProxySecret: env.screenProxySecret,
       sandboxProvider: env.sandboxProvider,
+      signupAllowlistFromEnv: signupPolicyFromEnv(env).allowlist.length > 0,
       gitSha: env.gitSha,
       updaterUrl: env.updaterUrl,
       updaterToken: env.updaterToken,

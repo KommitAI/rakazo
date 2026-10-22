@@ -388,6 +388,7 @@ msgstr "Activiteit"
 #: src/pages/McpServersOverlay.tsx
 #: src/pages/PluginsOverlay.tsx
 #: src/pages/ScratchpadSection.tsx
+#: src/pages/SignupSettingsPanel.tsx
 msgid "Add"
 msgstr "Toevoegen"
 
@@ -579,6 +580,10 @@ msgstr "Een keer toestaan"
 msgid "Allow purchase actions without asking"
 msgstr "Aankoopacties toestaan zonder te vragen"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Allow sign-ups"
+msgstr "Registraties toestaan"
+
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 msgid "Allow writing"
 msgstr "Schrijven toestaan"
@@ -648,6 +653,10 @@ msgstr "Beantwoord: {answer}"
 #: src/pages/Paywall.tsx
 msgid "Any model, with your own key"
 msgstr "Elk model, met je eigen sleutel"
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Anyone can sign up."
+msgstr "Iedereen kan zich registreren."
 
 #: src/components/SoftwareUpdateSection.tsx
 msgid "API is back, but the update did not finish. Check the host logs."
@@ -1676,6 +1685,10 @@ msgstr "Rungeschiedenis laden mislukt"
 msgid "Could not load sign-in options"
 msgstr "Aanmeldopties laden mislukt"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Could not load sign-up settings"
+msgstr "Registratie-instellingen laden mislukt"
+
 #: src/pages/KnowledgeSection.tsx
 msgid "Could not load skill"
 msgstr "Skill laden mislukt"
@@ -1805,6 +1818,10 @@ msgstr "Routine opslaan mislukt"
 #: src/components/ApprovalRulesSettings.tsx
 msgid "Could not save rule"
 msgstr "Regel opslaan mislukt"
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Could not save sign-up settings"
+msgstr "Registratie-instellingen opslaan mislukt"
 
 #: src/pages/KnowledgeSection.tsx
 msgid "Could not save skill"
@@ -2304,6 +2321,10 @@ msgstr "E-mail"
 msgid "Email is not allowed to register"
 msgstr "Dit e-mailadres mag niet worden geregistreerd"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Email or @domain"
+msgstr "E-mailadres of @domein"
+
 #: src/lib/user-error.ts
 msgid "Email verification required"
 msgstr "E-mailverificatie vereist"
@@ -2346,6 +2367,10 @@ msgstr "Voer een geheel getal van 1 tot 1000 in voor de afbeeldingslimiet."
 #: src/lib/model-connection-preflight.ts
 msgid "Enter an API key before testing."
 msgstr "Voer een API-sleutel in voordat je test."
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Enter an email address or @domain"
+msgstr "Voer een e-mailadres of @domein in"
 
 #: src/pages/McpServersOverlay.tsx
 msgid "Environment variables"
@@ -3281,6 +3306,10 @@ msgstr "Geef deze groep een naam"
 msgid "Name this routine"
 msgstr "Geef deze routine een naam"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "name@example.com or @example.com"
+msgstr "naam@example.com of @example.com"
+
 #: src/lib/roster-status.ts
 msgid "Needs an answer"
 msgstr "Heeft een antwoord nodig"
@@ -3980,6 +4009,7 @@ msgstr "Herladen"
 #: src/pages/PluginsOverlay.tsx
 #: src/pages/ScratchpadSection.tsx
 #: src/pages/shell/bot-credentials.tsx
+#: src/pages/SignupSettingsPanel.tsx
 msgid "Remove"
 msgstr "Verwijderen"
 
@@ -3996,6 +4026,10 @@ msgstr "{0} uit de groep verwijderen"
 #: src/pages/ModelBackupsSettings.tsx
 msgid "Remove {full}"
 msgstr "{full} verwijderen"
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Remove {item}"
+msgstr "{item} verwijderen"
 
 #: src/pages/shell/bot-credentials.tsx
 msgid "Remove {secretName}? This bot will no longer be able to use it."
@@ -4449,6 +4483,10 @@ msgstr "Servernaam"
 msgid "Server URL"
 msgstr "Server-URL"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Set by SIGNUP_ALLOWLIST on the server."
+msgstr "Ingesteld door SIGNUP_ALLOWLIST op de server."
+
 #: src/components/call/CallCard.tsx
 #: src/components/SidebarFooter.tsx
 #: src/pages/MessagingSettingsOverlay.tsx
@@ -4570,6 +4608,10 @@ msgstr "Meld je aan met het abonnement of test in plaats daarvan de API-sleutel.
 #: src/pages/Welcome.tsx
 msgid "Sign up"
 msgstr "Registreren"
+
+#: src/pages/SettingsOverlay.tsx
+msgid "Sign-ups"
+msgstr "Registraties"
 
 #: src/pages/shell/bot-credentials.tsx
 msgid "Site"
@@ -5247,6 +5289,10 @@ msgstr "Waarden worden versleuteld en nooit opnieuw getoond."
 #: src/pages/PluginsOverlay.tsx
 msgid "Verify and add"
 msgstr "Verifiëren en toevoegen"
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Verify your email address to limit sign-ups."
+msgstr "Bevestig je e-mailadres om registraties te beperken."
 
 #: src/pages/PluginsOverlay.tsx
 msgid "Verifying…"

@@ -388,6 +388,7 @@ msgstr "गतिविधि"
 #: src/pages/McpServersOverlay.tsx
 #: src/pages/PluginsOverlay.tsx
 #: src/pages/ScratchpadSection.tsx
+#: src/pages/SignupSettingsPanel.tsx
 msgid "Add"
 msgstr "जोड़ें"
 
@@ -579,6 +580,10 @@ msgstr "एक बार अनुमति दें"
 msgid "Allow purchase actions without asking"
 msgstr "खरीद कार्रवाइयों को बिना पूछे अनुमति दें"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Allow sign-ups"
+msgstr ""
+
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 msgid "Allow writing"
 msgstr ""
@@ -647,6 +652,10 @@ msgstr "उत्तर: {answer}"
 
 #: src/pages/Paywall.tsx
 msgid "Any model, with your own key"
+msgstr ""
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Anyone can sign up."
 msgstr ""
 
 #: src/components/SoftwareUpdateSection.tsx
@@ -1676,6 +1685,10 @@ msgstr "रन का इतिहास लोड नहीं हो सका
 msgid "Could not load sign-in options"
 msgstr "साइन इन के विकल्प लोड नहीं हो सके"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Could not load sign-up settings"
+msgstr ""
+
 #: src/pages/KnowledgeSection.tsx
 msgid "Could not load skill"
 msgstr "स्किल लोड नहीं हो सकी"
@@ -1805,6 +1818,10 @@ msgstr "रूटीन सहेजा नहीं जा सका"
 #: src/components/ApprovalRulesSettings.tsx
 msgid "Could not save rule"
 msgstr "नियम सहेजा नहीं जा सका"
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Could not save sign-up settings"
+msgstr ""
 
 #: src/pages/KnowledgeSection.tsx
 msgid "Could not save skill"
@@ -2304,6 +2321,10 @@ msgstr "ईमेल"
 msgid "Email is not allowed to register"
 msgstr "इस ईमेल को पंजीकरण की अनुमति नहीं है"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Email or @domain"
+msgstr ""
+
 #: src/lib/user-error.ts
 msgid "Email verification required"
 msgstr "ईमेल सत्यापन आवश्यक है"
@@ -2346,6 +2367,10 @@ msgstr "इमेज सीमा के लिए 1 से 1000 के बी�
 #: src/lib/model-connection-preflight.ts
 msgid "Enter an API key before testing."
 msgstr "परीक्षण से पहले API कुंजी दर्ज करें।"
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Enter an email address or @domain"
+msgstr ""
 
 #: src/pages/McpServersOverlay.tsx
 msgid "Environment variables"
@@ -3281,6 +3306,10 @@ msgstr "इस समूह को नाम दें"
 msgid "Name this routine"
 msgstr ""
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "name@example.com or @example.com"
+msgstr ""
+
 #: src/lib/roster-status.ts
 msgid "Needs an answer"
 msgstr ""
@@ -3980,6 +4009,7 @@ msgstr "फिर से लोड करें"
 #: src/pages/PluginsOverlay.tsx
 #: src/pages/ScratchpadSection.tsx
 #: src/pages/shell/bot-credentials.tsx
+#: src/pages/SignupSettingsPanel.tsx
 msgid "Remove"
 msgstr "हटाएं"
 
@@ -3996,6 +4026,10 @@ msgstr ""
 #: src/pages/ModelBackupsSettings.tsx
 msgid "Remove {full}"
 msgstr "{full} हटाएँ"
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Remove {item}"
+msgstr ""
 
 #: src/pages/shell/bot-credentials.tsx
 msgid "Remove {secretName}? This bot will no longer be able to use it."
@@ -4449,6 +4483,10 @@ msgstr "सर्वर का नाम"
 msgid "Server URL"
 msgstr "सर्वर URL"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Set by SIGNUP_ALLOWLIST on the server."
+msgstr ""
+
 #: src/components/call/CallCard.tsx
 #: src/components/SidebarFooter.tsx
 #: src/pages/MessagingSettingsOverlay.tsx
@@ -4570,6 +4608,10 @@ msgstr "सब्सक्रिप्शन से साइन इन कर�
 #: src/pages/Welcome.tsx
 msgid "Sign up"
 msgstr "साइन अप करें"
+
+#: src/pages/SettingsOverlay.tsx
+msgid "Sign-ups"
+msgstr ""
 
 #: src/pages/shell/bot-credentials.tsx
 msgid "Site"
@@ -5247,6 +5289,10 @@ msgstr "मान एन्क्रिप्ट किए जाते है�
 #: src/pages/PluginsOverlay.tsx
 msgid "Verify and add"
 msgstr "पुष्टि करके जोड़ें"
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Verify your email address to limit sign-ups."
+msgstr ""
 
 #: src/pages/PluginsOverlay.tsx
 msgid "Verifying…"

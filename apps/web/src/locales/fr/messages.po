@@ -388,6 +388,7 @@ msgstr "Activité"
 #: src/pages/McpServersOverlay.tsx
 #: src/pages/PluginsOverlay.tsx
 #: src/pages/ScratchpadSection.tsx
+#: src/pages/SignupSettingsPanel.tsx
 msgid "Add"
 msgstr "Ajouter"
 
@@ -579,6 +580,10 @@ msgstr "Autoriser une fois"
 msgid "Allow purchase actions without asking"
 msgstr "Autoriser les actions d'achat sans demander"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Allow sign-ups"
+msgstr ""
+
 #: src/pages/memory-providers/SerenitySettingsForm.tsx
 msgid "Allow writing"
 msgstr "Autoriser l'écriture"
@@ -647,6 +652,10 @@ msgstr "Répondu : {answer}"
 
 #: src/pages/Paywall.tsx
 msgid "Any model, with your own key"
+msgstr ""
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Anyone can sign up."
 msgstr ""
 
 #: src/components/SoftwareUpdateSection.tsx
@@ -1676,6 +1685,10 @@ msgstr "Impossible de charger l’historique des exécutions"
 msgid "Could not load sign-in options"
 msgstr "Impossible de charger les options de connexion"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Could not load sign-up settings"
+msgstr ""
+
 #: src/pages/KnowledgeSection.tsx
 msgid "Could not load skill"
 msgstr "Impossible de charger la compétence"
@@ -1805,6 +1818,10 @@ msgstr "Impossible d'enregistrer la routine"
 #: src/components/ApprovalRulesSettings.tsx
 msgid "Could not save rule"
 msgstr "Impossible d'enregistrer la règle"
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Could not save sign-up settings"
+msgstr ""
 
 #: src/pages/KnowledgeSection.tsx
 msgid "Could not save skill"
@@ -2304,6 +2321,10 @@ msgstr "E-mail"
 msgid "Email is not allowed to register"
 msgstr "Cette adresse e-mail ne peut pas s’inscrire"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Email or @domain"
+msgstr ""
+
 #: src/lib/user-error.ts
 msgid "Email verification required"
 msgstr "Vérification de l’e-mail requise"
@@ -2346,6 +2367,10 @@ msgstr "Saisissez un nombre entier de 1 à 1000 pour la limite d'images."
 #: src/lib/model-connection-preflight.ts
 msgid "Enter an API key before testing."
 msgstr "Saisissez une clé API avant de tester."
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Enter an email address or @domain"
+msgstr ""
 
 #: src/pages/McpServersOverlay.tsx
 msgid "Environment variables"
@@ -3281,6 +3306,10 @@ msgstr "Nommez ce groupe"
 msgid "Name this routine"
 msgstr "Nommez cette routine"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "name@example.com or @example.com"
+msgstr ""
+
 #: src/lib/roster-status.ts
 msgid "Needs an answer"
 msgstr ""
@@ -3980,6 +4009,7 @@ msgstr "Recharger"
 #: src/pages/PluginsOverlay.tsx
 #: src/pages/ScratchpadSection.tsx
 #: src/pages/shell/bot-credentials.tsx
+#: src/pages/SignupSettingsPanel.tsx
 msgid "Remove"
 msgstr "Retirer"
 
@@ -3996,6 +4026,10 @@ msgstr ""
 #: src/pages/ModelBackupsSettings.tsx
 msgid "Remove {full}"
 msgstr "Supprimer {full}"
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Remove {item}"
+msgstr ""
 
 #: src/pages/shell/bot-credentials.tsx
 msgid "Remove {secretName}? This bot will no longer be able to use it."
@@ -4449,6 +4483,10 @@ msgstr "Nom du serveur"
 msgid "Server URL"
 msgstr "URL du serveur"
 
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Set by SIGNUP_ALLOWLIST on the server."
+msgstr ""
+
 #: src/components/call/CallCard.tsx
 #: src/components/SidebarFooter.tsx
 #: src/pages/MessagingSettingsOverlay.tsx
@@ -4570,6 +4608,10 @@ msgstr "Connectez-vous avec l'abonnement, ou testez la clé API à la place."
 #: src/pages/Welcome.tsx
 msgid "Sign up"
 msgstr "S'inscrire"
+
+#: src/pages/SettingsOverlay.tsx
+msgid "Sign-ups"
+msgstr ""
 
 #: src/pages/shell/bot-credentials.tsx
 msgid "Site"
@@ -5247,6 +5289,10 @@ msgstr "Les valeurs sont chiffrées et ne sont plus affichées."
 #: src/pages/PluginsOverlay.tsx
 msgid "Verify and add"
 msgstr "Vérifier et ajouter"
+
+#: src/pages/SignupSettingsPanel.tsx
+msgid "Verify your email address to limit sign-ups."
+msgstr ""
 
 #: src/pages/PluginsOverlay.tsx
 msgid "Verifying…"

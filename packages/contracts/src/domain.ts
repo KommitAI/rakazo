@@ -1382,10 +1382,25 @@ export const VoiceStatusSchema = z.object({
 });
 export type VoiceStatus = z.infer<typeof VoiceStatusSchema>;
 
+/** An allowed signup address (`name@example.com`) or a whole domain (`@example.com`). */
+export const SignupAllowlistEntrySchema = z
+  .string()
+  .trim()
+  .toLowerCase()
+  .max(254)
+  .regex(/^[^\s@,]*@[^\s@,]+\.[^\s@,]+$/);
+
 export const DeploymentSettingsSchema = z.object({
   ownerUserId: Id.nullable(),
   signupsEnabled: z.boolean(),
   signupAllowlist: z.array(z.string()),
+  /** SIGNUP_ALLOWLIST is set on the server and replaces the stored list on every start. */
+  signupAllowlistFromEnv: z.boolean(),
+  /**
+   * An allowlist signs out every unverified account, so an owner who has not verified
+   * their address cannot start one without locking themselves out.
+   */
+  ownerEmailVerified: z.boolean(),
   hasDeploymentModelCredential: z.boolean(),
   defaultProvider: z.string().nullable(),
   defaultModel: z.string().nullable(),
@@ -1393,6 +1408,7 @@ export const DeploymentSettingsSchema = z.object({
   canChooseHostComputer: z.boolean(),
   sandboxProvider: z.string(),
 });
+export type DeploymentSettings = z.infer<typeof DeploymentSettingsSchema>;
 
 export const ServerUpdateSourceSchema = z.object({
   repoUrl: z.string().max(400),
