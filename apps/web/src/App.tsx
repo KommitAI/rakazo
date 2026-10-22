@@ -22,6 +22,7 @@ import { desktopBridge } from "./lib/desktop";
 import { identifyMonitoringUser } from "./lib/monitoring";
 import { markAfterPaint, markOnce } from "./lib/performance";
 import { lazyComponent } from "./lib/preload-recovery";
+import { useProductName } from "./lib/product-name";
 import { getRemoteImagesEnabled, subscribeRemoteImages } from "./lib/remote-images-preference";
 import { rpc } from "./lib/rpc";
 import {
@@ -70,6 +71,10 @@ export function App() {
     getRemoteImagesEnabled,
     () => false,
   );
+  const productName = useProductName();
+  useEffect(() => {
+    document.title = productName;
+  }, [productName]);
   return (
     <RemoteImagesContext.Provider value={loadRemoteImages}>
       <LinkFaviconsContext.Provider value={linkFavicons}>

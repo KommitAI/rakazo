@@ -8,6 +8,7 @@ import {
   passwordResetEmail,
   resolveSignupPolicy,
   signInCodeEmail,
+  verificationEmail,
 } from "./index.js";
 
 describe("auth policy", () => {
@@ -168,6 +169,28 @@ describe("signInCodeEmail", () => {
     expect(message.text).toContain("042517");
     expect(message.html).toContain("042517");
     expect(`${message.text}${message.html}`).not.toMatch(/https?:/);
+  });
+});
+
+describe("PRODUCT_NAME in account emails", () => {
+  it("names the deployment and escapes the name in HTML", () => {
+    const user = { id: "user-1", email: "ada@example.test", name: "Ada" };
+    const messages = [
+      verificationEmail("ada@example.test", "https://rakazo.test/verify", "Acme <Bots>"),
+      signInCodeEmail("ada@example.test", "042517", "Acme <Bots>"),
+      passwordResetEmail(user, "https://rakazo.test/reset-password", "Acme <Bots>"),
+    ];
+    expect(messages.map((message) => message.subject)).toEqual([
+      "Verify your Acme <Bots> email",
+      "Your Acme <Bots> sign-in code",
+      "Reset your Acme <Bots> password",
+    ]);
+    for (const message of messages) {
+      expect(message.text).toContain("Acme <Bots>");
+      expect(message.text).not.toContain("Rakazo");
+      expect(message.html).toContain("Acme &lt;Bots&gt;");
+      expect(message.html).not.toContain("<Bots>");
+    }
   });
 });
 

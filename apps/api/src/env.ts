@@ -14,6 +14,7 @@ import type { MinimumClientBuilds } from "@rakazo/contracts";
 import { parseMinimumClientBuilds } from "@rakazo/contracts";
 import {
   phoneCallSettings,
+  productNameFromEnv,
   resolveAuthSecret,
   resolveContentEncryption,
   resolveEncryptionKey,
@@ -50,6 +51,8 @@ export interface AppEnv {
   clientIpHeader: string;
   signupsEnabled: string | undefined;
   signupAllowlist: string | undefined;
+  /** PRODUCT_NAME: the name people see in the app and in emails. */
+  productName: string;
   encryptionKey: string;
   /** CONTENT_ENCRYPTION: whether new content is encrypted at rest. */
   contentEncryption: boolean;
@@ -220,6 +223,7 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env): AppEnv {
     clientIpHeader: optional(source.CLIENT_IP_HEADER)?.toLowerCase() ?? "x-forwarded-for",
     signupsEnabled: source.SIGNUPS_ENABLED,
     signupAllowlist: source.SIGNUP_ALLOWLIST,
+    productName: productNameFromEnv(source.PRODUCT_NAME),
     encryptionKey: resolveEncryptionKey(source),
     contentEncryption: resolveContentEncryption(source),
     dataDir: source.DATA_DIR ?? "./data",

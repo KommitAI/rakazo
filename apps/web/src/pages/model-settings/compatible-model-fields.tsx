@@ -12,6 +12,7 @@ import {
   NativeSelectOption,
 } from "@rakazo/ui-web";
 import { ModelPreflightFeedback } from "../../components/ModelConnectionPreflightNotice";
+import { useProductName } from "../../lib/product-name";
 
 import type { ModelSettingsState } from "./use-model-settings";
 
@@ -84,6 +85,7 @@ export function CompatibleModelFields({
   | "updateBaseUrl"
 >) {
   const { t } = useLingui();
+  const productName = useProductName();
   return (
     <div className="block text-[13.5px] text-muted-foreground">
       <label className="block" htmlFor="model-base-url">
@@ -103,7 +105,7 @@ export function CompatibleModelFields({
         summary={<Trans>Setup help</Trans>}
       >
         <p className="mt-1">
-          {t`Paste the OpenAI-compatible address from your server. Rakazo adds /v1 if needed.`}
+          {t`Paste the OpenAI-compatible address from your server. ${productName} adds /v1 if needed.`}
         </p>
       </Disclosure>
       <div className="mt-3 flex items-center gap-2">

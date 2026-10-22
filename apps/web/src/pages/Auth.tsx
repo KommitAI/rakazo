@@ -1,6 +1,7 @@
 import { Trans, useLingui } from "@lingui/react/macro";
 import {
   credentialIssue,
+  DEFAULT_PRODUCT_NAME,
   MAX_PASSWORD_LENGTH,
   MIN_PASSWORD_LENGTH,
   signupRequiresEmailVerification,
@@ -44,6 +45,7 @@ export function AuthPage({ mode }: { mode: AuthMode }) {
   const [method, setMethod] = useState<"code" | "password">("code");
   const [codeSent, setCodeSent] = useState(false);
   const [code, setCode] = useState("");
+  const productName = reset?.productName ?? DEFAULT_PRODUCT_NAME;
   const useCode = Boolean(reset?.passwordAuth && reset.emailCode) && mode !== "forgot";
   const codeMode = useCode && method === "code";
   const codeStep = codeMode && codeSent;
@@ -52,9 +54,9 @@ export function AuthPage({ mode }: { mode: AuthMode }) {
     sent || codeStep ? (
       <Trans>Check your email</Trans>
     ) : mode === "in" ? (
-      <Trans>Sign in to Rakazo</Trans>
+      <Trans>Sign in to {productName}</Trans>
     ) : mode === "up" ? (
-      <Trans>Create your Rakazo</Trans>
+      <Trans>Create your {productName}</Trans>
     ) : (
       <Trans>Reset your password</Trans>
     );

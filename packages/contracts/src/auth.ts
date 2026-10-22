@@ -17,6 +17,8 @@ export const authCapabilitiesSchema = z.object({
   passkeyRpId: z.string().min(1).nullable().optional(),
   /** Native apps this domain vouches for; omitted by older servers, which means none. */
   nativePasskeys: z.object({ ios: z.boolean(), android: z.boolean() }).optional(),
+  /** PRODUCT_NAME of a self-hosted deployment; older servers omit it, which means Rakazo. */
+  productName: z.string().min(1).max(40).optional(),
 });
 export type AuthCapabilities = z.infer<typeof authCapabilitiesSchema>;
 

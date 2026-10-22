@@ -235,6 +235,9 @@ when the API starts for the first time and is not reapplied on restart. A non-em
 `SIGNUP_ALLOWLIST` is applied on every API start, replacing the allowlist stored for the deployment.
 Leave it empty to keep that stored list.
 
+`PRODUCT_NAME` (up to 40 characters) replaces "Rakazo" in the browser title, the sign-in and
+welcome pages, and account emails. Leave it empty to keep Rakazo.
+
 With a nonempty signup allowlist and SMTP configured, users—including existing accounts—must
 verify their email to sign in. Without an allowlist, verification never blocks: a password signup
 signs in at once and is sent a verification link that only marks the address verified.

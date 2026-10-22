@@ -6,6 +6,7 @@ import {
   ModelPreflightFeedback,
   modelPreflightTestingLabel,
 } from "../../components/ModelConnectionPreflightNotice";
+import { useProductName } from "../../lib/product-name";
 
 import type { ModelSettingsState } from "./use-model-settings";
 
@@ -78,6 +79,7 @@ export function ConnectionControls({
   | "updateApiKey"
 >) {
   const { t } = useLingui();
+  const productName = useProductName();
   return !isOpenAiCompatible ? (
     <>
       {subscriptionSignIn ? (
@@ -346,8 +348,8 @@ export function ConnectionControls({
       {selected?.auth === "oauth" && !subscriptionSignIn ? (
         <p className="mt-5 text-[13px] leading-[1.5] text-muted-foreground first:mt-0">
           <Trans>
-            This subscription sign-in is not available in Rakazo yet. Use a deployment credential or
-            choose another provider.
+            This subscription sign-in is not available in {productName} yet. Use a deployment
+            credential or choose another provider.
           </Trans>
         </p>
       ) : null}

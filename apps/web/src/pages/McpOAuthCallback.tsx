@@ -3,6 +3,7 @@ import { Button } from "@rakazo/ui-web";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { MCP_OAUTH_CHANNEL } from "../lib/mcp-connect";
+import { useProductName } from "../lib/product-name";
 import { rpc } from "../lib/rpc";
 import { errorText } from "../lib/user-error";
 
@@ -13,6 +14,7 @@ const POPUP_NAME = MCP_OAUTH_CHANNEL;
 
 export function McpOAuthCallbackPage() {
   const { t } = useLingui();
+  const productName = useProductName();
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const [error, setError] = useState<string | null>(null);
@@ -58,7 +60,7 @@ export function McpOAuthCallbackPage() {
         {error ? <p className="mt-2 max-w-md text-sm text-muted-foreground">{error}</p> : null}
         {showReturn ? (
           <Button type="button" className="mt-5" onClick={() => navigate("/app")}>
-            <Trans>Return to Rakazo</Trans>
+            <Trans>Return to {productName}</Trans>
           </Button>
         ) : (
           <p className="mt-2 text-sm text-muted-foreground">

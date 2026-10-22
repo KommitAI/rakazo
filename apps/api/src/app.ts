@@ -463,6 +463,7 @@ async function buildApp(overrides: CreateAppOverrides): Promise<AppHandles> {
     signupsEnabled: env.signupsEnabled,
     signupAllowlist: env.signupAllowlist,
     email,
+    productName: env.productName,
     logger: {
       level: "error",
       log: (_level, _message, ...args) =>
@@ -706,6 +707,7 @@ async function buildApp(overrides: CreateAppOverrides): Promise<AppHandles> {
       billing: Boolean(billing),
       passkeyRpId: auth.passkeyRpId,
       nativePasskeys: nativePasskeys(env, auth.passkeyRpId),
+      productName: env.productName,
     } satisfies AuthCapabilities);
   });
   mountAppAssociation(app, env);

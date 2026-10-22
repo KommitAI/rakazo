@@ -7,6 +7,7 @@ import type {
 } from "@rakazo/adapter-kit";
 import {
   allowlistedSignupAdmission,
+  DEFAULT_PRODUCT_NAME,
   displayName,
   emailAllowed,
   firstAccountClaimDecision,
@@ -36,6 +37,7 @@ import {
   signedBearer,
 } from "./account-security.js";
 import { breachedPasswordCheck } from "./breached-password.js";
+import { escapeHtml } from "./escape-html.js";
 import type { OidcConfig } from "./oidc.js";
 import { isCurrentOidcAccount, oidcDiscovery } from "./oidc.js";
 import { passkeyRelyingParty } from "./passkey.js";
@@ -60,6 +62,8 @@ export interface AuthEnv {
   /** SHA-256 signing certificate fingerprints of Android apps allowed to use this server's passkeys. */
   androidAppCertFingerprints?: string[];
   email?: TransactionalEmailProvider;
+  /** Name shown in emails and passkey prompts; defaults to Rakazo. */
+  productName?: string;
   logger?: BetterAuthOptions["logger"];
   onEmailError?: (error: unknown) => void;
   beforeDeleteUser?: (userId: string) => Promise<void>;
@@ -322,8 +326,9 @@ export function createAuth(prisma: PrismaClient, env: AuthEnv) {
   // Better Auth's own token key, so every stored token shares one cipher and key.
   let authContext: Promise<{ secretConfig: TokenKey }> | undefined;
   const tokenKey = async () => (await authContext!).secretConfig;
+  const productName = env.productName ?? DEFAULT_PRODUCT_NAME;
   const auth = betterAuth({
-    appName: "Rakazo",
+    appName: productName,
     logger: env.logger,
     secret: env.secret,
     baseURL: env.baseURL,
@@ -364,7 +369,7 @@ export function createAuth(prisma: PrismaClient, env: AuthEnv) {
             // Keep the response timing generic. Production providers track and retry the promise,
             // while the composition root drains accepted delivery during graceful shutdown.
             void env.email
-              ?.send(passwordResetEmail(user, url))
+              ?.send(passwordResetEmail(user, url, productName))
               .catch((error) => env.onEmailError?.(error));
           }
         : undefined,
@@ -381,7 +386,7 @@ export function createAuth(prisma: PrismaClient, env: AuthEnv) {
               "callbackURL",
               new URL("/sign-in", env.webOrigin).href,
             );
-            await env.email!.send(verificationEmail(user.email, verificationUrl.href));
+            await env.email!.send(verificationEmail(user.email, verificationUrl.href, productName));
           }
         : undefined,
     },
@@ -459,7 +464,13 @@ export function createAuth(prisma: PrismaClient, env: AuthEnv) {
     plugins: [
       signedBearer,
       expo(),
-      accountSecurity(env.email, env.oidc?.name, env.oidc?.issuer, env.passwordAuth !== false),
+      accountSecurity(
+        env.email,
+        env.oidc?.name,
+        env.oidc?.issuer,
+        env.passwordAuth !== false,
+        productName,
+      ),
       ...(discovery ? [discovery.plugin] : []),
       ...(emailCodeSignIn
         ? [
@@ -472,7 +483,7 @@ export function createAuth(prisma: PrismaClient, env: AuthEnv) {
                 // Like password reset, do not wait on delivery: a refused address
                 // answers at once, so waiting would reveal which addresses are admitted.
                 void env.email
-                  ?.send(signInCodeEmail(email, otp))
+                  ?.send(signInCodeEmail(email, otp, productName))
                   .catch((error) => env.onEmailError?.(error));
               },
             }),
@@ -485,7 +496,7 @@ export function createAuth(prisma: PrismaClient, env: AuthEnv) {
         ? [
             passkey({
               rpID: relyingParty.rpID,
-              rpName: "Rakazo",
+              rpName: productName,
               origin: relyingParty.origins,
             }) as BetterAuthPlugin,
           ]
@@ -831,52 +842,56 @@ export function createAuth(prisma: PrismaClient, env: AuthEnv) {
   });
 }
 
-export function verificationEmail(email: string, url: string): TransactionalEmail {
+export function verificationEmail(
+  email: string,
+  url: string,
+  productName = DEFAULT_PRODUCT_NAME,
+): TransactionalEmail {
+  const product = escapeHtml(productName);
   return {
     to: email,
-    subject: "Verify your Rakazo email",
-    text: `Verify your email, then return to Rakazo to sign in:\n\n${url}\n\nThis link expires in one hour. If you did not register, ignore this email.`,
-    html: `<p><a href="${escapeHtml(url)}">Verify email</a>, then return to Rakazo to sign in.</p><p>This link expires in one hour. If you did not register, ignore this email.</p>`,
+    subject: `Verify your ${productName} email`,
+    text: `Verify your email, then return to ${productName} to sign in:\n\n${url}\n\nThis link expires in one hour. If you did not register, ignore this email.`,
+    html: `<p><a href="${escapeHtml(url)}">Verify email</a>, then return to ${product} to sign in.</p><p>This link expires in one hour. If you did not register, ignore this email.</p>`,
   };
 }
 
-export function signInCodeEmail(email: string, code: string): TransactionalEmail {
+export function signInCodeEmail(
+  email: string,
+  code: string,
+  productName = DEFAULT_PRODUCT_NAME,
+): TransactionalEmail {
+  const product = escapeHtml(productName);
   return {
     to: email,
-    subject: "Your Rakazo sign-in code",
-    text: `Enter this code to sign in to Rakazo:\n\n${code}\n\nThis code expires in ten minutes. If you did not request it, ignore this email.`,
-    html: `<p>Enter this code to sign in to Rakazo:</p><p><strong>${escapeHtml(code)}</strong></p><p>This code expires in ten minutes. If you did not request it, ignore this email.</p>`,
+    subject: `Your ${productName} sign-in code`,
+    text: `Enter this code to sign in to ${productName}:\n\n${code}\n\nThis code expires in ten minutes. If you did not request it, ignore this email.`,
+    html: `<p>Enter this code to sign in to ${product}:</p><p><strong>${escapeHtml(code)}</strong></p><p>This code expires in ten minutes. If you did not request it, ignore this email.</p>`,
   };
 }
 
 export function passwordResetEmail(
   user: { id: string; email: string; name: string },
   resetUrl: string,
+  productName = DEFAULT_PRODUCT_NAME,
 ): TransactionalEmail {
   const name = displayName(user.name, "there");
   const safeName = escapeHtml(name);
   const safeUrl = escapeHtml(resetUrl);
+  const product = escapeHtml(productName);
   return {
     to: user.email,
-    subject: "Reset your Rakazo password",
+    subject: `Reset your ${productName} password`,
     text: [
       `Hi ${name},`,
       "",
-      "Reset your Rakazo password using this link:",
+      `Reset your ${productName} password using this link:`,
       resetUrl,
       "",
       "This link expires in one hour. If you did not request this, you can ignore this email.",
     ].join("\n"),
-    html: `<p>Hi ${safeName},</p><p>Reset your Rakazo password:</p><p><a href="${safeUrl}">Reset password</a></p><p>This link expires in one hour. If you did not request this, you can ignore this email.</p>`,
+    html: `<p>Hi ${safeName},</p><p>Reset your ${product} password:</p><p><a href="${safeUrl}">Reset password</a></p><p>This link expires in one hour. If you did not request this, you can ignore this email.</p>`,
   };
-}
-
-function escapeHtml(value: string): string {
-  return value.replace(
-    /[&<>"']/g,
-    (character) =>
-      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]!,
-  );
 }
 
 export type Auth = ReturnType<typeof createAuth>;

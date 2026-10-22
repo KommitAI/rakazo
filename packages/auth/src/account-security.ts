@@ -1,5 +1,6 @@
 import { randomBytes } from "node:crypto";
 import type { TransactionalEmailProvider } from "@rakazo/adapter-kit";
+import { DEFAULT_PRODUCT_NAME } from "@rakazo/core";
 import type { BetterAuthPlugin } from "better-auth";
 import {
   APIError,
@@ -9,6 +10,7 @@ import {
   sessionMiddleware,
 } from "better-auth/api";
 import { bearer } from "better-auth/plugins";
+import { escapeHtml } from "./escape-html.js";
 import { isCurrentOidcAccount } from "./oidc.js";
 
 export const oidcProofKey = (sessionId: string) => `oidc-reauth-${sessionId}`;
@@ -18,7 +20,9 @@ export function accountSecurity(
   ssoName?: string,
   ssoIssuer?: string,
   passwordChangeEnabled = true,
+  productName = DEFAULT_PRODUCT_NAME,
 ): BetterAuthPlugin {
+  const product = escapeHtml(productName);
   return {
     id: "account-security",
     endpoints: {
@@ -77,9 +81,9 @@ export function accountSecurity(
           });
           await email.send({
             to: user.email,
-            subject: "Confirm Rakazo account deletion",
-            text: `Enter this code in Rakazo to delete your account:\n\n${token}\n\nThis code expires in ten minutes. If you did not request deletion, ignore this email.`,
-            html: `<p>Enter this code in Rakazo to delete your account:</p><p>${token}</p><p>This code expires in ten minutes. If you did not request deletion, ignore this email.</p>`,
+            subject: `Confirm ${productName} account deletion`,
+            text: `Enter this code in ${productName} to delete your account:\n\n${token}\n\nThis code expires in ten minutes. If you did not request deletion, ignore this email.`,
+            html: `<p>Enter this code in ${product} to delete your account:</p><p>${token}</p><p>This code expires in ten minutes. If you did not request deletion, ignore this email.</p>`,
           });
           return ctx.json({ success: true });
         },

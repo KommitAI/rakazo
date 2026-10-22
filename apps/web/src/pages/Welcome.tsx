@@ -1,9 +1,11 @@
 import { Trans } from "@lingui/react/macro";
 import { Link, useNavigate } from "react-router-dom";
+import { useProductName } from "../lib/product-name";
 import { WindowChrome } from "./WindowChrome";
 
 export function WelcomePage() {
   const navigate = useNavigate();
+  const productName = useProductName();
   return (
     <div className="flex min-h-full flex-col bg-background" data-rakazo-surface="welcome">
       <div className="app-drag flex gap-2 px-5 py-[18px]">
@@ -16,7 +18,7 @@ export function WelcomePage() {
             <span className="h-[17px] w-2 rounded-full bg-card sm:h-6 sm:w-[11px]" />
           </div>
           <h1 className="text-[56px] leading-none tracking-[-0.03em] text-foreground sm:text-[76px]">
-            Rakazo
+            {productName}
           </h1>
         </div>
         <p className="max-w-[600px] text-center text-[27px] leading-[1.4] text-foreground/75">
